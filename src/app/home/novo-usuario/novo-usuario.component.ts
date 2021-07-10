@@ -1,6 +1,6 @@
 import { NovoUsuarioService } from './novo-usuario.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThrowStmt } from '@angular/compiler';
 import { NovoUsuario } from './novo-usuario';
 
@@ -21,8 +21,9 @@ export class NovoUsuarioComponent implements OnInit {
     //indicado para cria os form
     this.novoUsuarioForm = this.formBuilder.group({
       //descrição dos elementos dos form
-      email: [''],
-      fullName:[''],
+      //required -> obrigatorio, email -> validação de email
+      email: ['',[Validators.required, Validators.email]],
+      fullName:['',[Validators.required, Validators.minLength(4)]],
       userName: [''],
       password: ['']
     })
