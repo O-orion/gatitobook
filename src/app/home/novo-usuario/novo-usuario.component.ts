@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThrowStmt } from '@angular/compiler';
 import { NovoUsuario } from './novo-usuario';
+import { miniusculoValidator } from './minuscula.validators';
 
 @Component({
   selector: 'app-novo-usuario',
@@ -24,7 +25,7 @@ export class NovoUsuarioComponent implements OnInit {
       //required -> obrigatorio, email -> validação de email
       email: ['',[Validators.required, Validators.email]],
       fullName:['',[Validators.required, Validators.minLength(4)]],
-      userName: [''],
+      userName: ['', [ Validators.required,miniusculoValidator]],
       password: ['']
     })
   }// fim onit

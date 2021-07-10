@@ -21,7 +21,7 @@
   <div class="form-group">
     <input type="text" placeholder="Nome Completo" class="form-control" formControlName="fullName" >
     <app-mensagem
-     *ngIf="novoUsuarioForm.get('fullName')?.errors?.required"
+     *ngIf="novoUsuarioForm.get('fullName')?.errors?.required && novoUsuarioForm.get('fullName')?.touched"
      mensagem="Nome Inválido"
     >
     </app-mensagem>
@@ -29,6 +29,13 @@
 
   <div class="form-group">
     <input type="text" placeholder="Usuário" class="form-control" formControlName="userName">
+    <app-mensagem
+     mensagem="Username Inválido!"
+     *ngIf="novoUsuarioForm.get('userName')?.errors?.minusculo ||
+      novoUsuarioForm.get('userName')?.errors?.required &&
+      novoUsuarioForm.get('userName')?.touched"
+
+    ></app-mensagem>
   </div>
 
   <div class="form-group">
