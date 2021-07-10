@@ -1,3 +1,4 @@
+import { UsuarioExisteService } from './usuario-existe.service';
 import { NovoUsuarioService } from './novo-usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,7 +16,10 @@ export class NovoUsuarioComponent implements OnInit {
   novoUsuarioForm!: FormGroup;
 
   //injetano serviço para valiação de form
-  constructor(private formBuilder: FormBuilder, private novoUser: NovoUsuarioService) { }
+  constructor(private formBuilder: FormBuilder,
+    private novoUser: NovoUsuarioService,
+    private usuarioExistente: UsuarioExisteService
+    ) { }
 
   ngOnInit(): void {
     //executao após er ejetado todos os services
@@ -25,7 +29,7 @@ export class NovoUsuarioComponent implements OnInit {
       //required -> obrigatorio, email -> validação de email
       email: ['',[Validators.required, Validators.email]],
       fullName:['',[Validators.required, Validators.minLength(4)]],
-      userName: ['', [ Validators.required,miniusculoValidator]],
+      userName: ['', [ Validators.required,miniusculoValidator],[this.usuarioExistente.usuarioExistente()]],
       password: ['']
     })
   }// fim onit
