@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UsuarioExisteService } from './usuario-existe.service';
 import { NovoUsuarioService } from './novo-usuario.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,9 +18,11 @@ export class NovoUsuarioComponent implements OnInit {
   novoUsuarioForm!: FormGroup;
 
   //injetano serviço para valiação de form
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private novoUser: NovoUsuarioService,
-    private usuarioExistente: UsuarioExisteService
+    private usuarioExistente: UsuarioExisteService,
+    private router: Router,
     ) { }
 
   ngOnInit(): void {
@@ -40,8 +43,18 @@ export class NovoUsuarioComponent implements OnInit {
 
   cadastrar(){
     //getRawValue retorna um objeto com o estado das variaveis declrado acima no form
-    const novoUsuario = this.novoUsuarioForm.getRawValue() as NovoUsuario // casting dizendo que o que retorna e do tipo novouser
-    console.log(novoUsuario)
+
+    if(this.novoUsuarioForm.valid){
+      const novoUsuario = this.novoUsuarioForm.getRawValue() as NovoUsuario // casting dizendo que o que retorna e do tipo novouser
+      this.novoUser.cadastraNovoUsuario(novoUsuario).subscribe({
+        next: (sucesso) => {
+          this.router.navigate([''])
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
+    }
   }
 
 }
