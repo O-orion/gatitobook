@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThrowStmt } from '@angular/compiler';
 import { NovoUsuario } from './novo-usuario';
 import { miniusculoValidator } from './minuscula.validators';
+import { usuarioSenhaIguaisValidator } from './usuario-senha-iguais.validator';
 
 @Component({
   selector: 'app-novo-usuario',
@@ -31,6 +32,9 @@ export class NovoUsuarioComponent implements OnInit {
       fullName:['',[Validators.required, Validators.minLength(4)]],
       userName: ['', [ Validators.required,miniusculoValidator],[this.usuarioExistente.usuarioExistente()]],
       password: ['']
+    },
+    {// validação do form
+      validators: [usuarioSenhaIguaisValidator]
     })
   }// fim onit
 
